@@ -1,0 +1,13 @@
+h1 {
+  color: white;
+}
+
+.regular {
+  background-color: #904fad;
+}
+.small {
+  background-color: #eebc12;
+}
+.large {
+  background-color: #2e8cd5;
+}
