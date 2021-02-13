@@ -1,12 +1,13 @@
 const clockContainer = document.querySelector(".js-clock");
 const clockTitle = clockContainer.querySelector("h2");
 
-const nowDate = new Date();
-const xmasDate = new Date("2021-12-24:00:00:00+0900");
-const calDate = xmasDate - nowDate;
-
 function getTime() {
+  const nowDate = new Date();
+  //date 객체는 밀리초로 나타냄
+  const xmasDate = new Date("2021-12-24:00:00:00+0900");
+  const calDate = xmasDate - nowDate;
   const date = Math.floor(calDate / (1000 * 60 * 60 * 24));
+  //1000 = 1초
   const hours = Math.floor(
     (calDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
   );
@@ -18,6 +19,7 @@ function getTime() {
   }h ${minutes < 10 ? `0${minutes}` : minutes}m ${
     seconds < 10 ? `0${seconds}` : seconds
   }s`;
+  console.log(calDate);
 }
 function init() {
   getTime();
