@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Random Number Game</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <h1>Random Number Game</h1>
+    <h3 class="numberStick">Generate a number between 0 and 10</h3>
+    <form action="submit" class="js-stick">
+      <input type="range" min="10" max="200" list="tickmarks" />
+      <datalist id="tickmarks">
+        <option value="0"></option>
+        <option value="50"></option>
+        <option value="100"></option>
+        <option value="150"></option>
+        <option value="200"></option>
+      </datalist>
+    </form>
+    <form action="submit" class="randomNumber">
+      <label for="number">Guess the number : </label>
+      <input type="number" />
+      <input type="submit" value="Play!" />
+    </form>
+    <p></p>
+    <h4></h4>
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Brygada+1918:wght@400;600&display=swap");
+
+body {
+  font-family: "Brygada 1918", serif;
+}
+h4,
+p {
+  margin: 0;
+}
+input:nth-child(2) {
+  width: 50px;
+}
