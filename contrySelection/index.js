@@ -11,21 +11,3 @@ function init() {
   select.addEventListener("change", countrySelect);
 }
 init();
-
-// function handleChange() {
-//   const selected = select.value;
-// option이 선택되었을 때의 value
-//   localStorage.setItem("country", selected);
-// }
-
-// function loadCountries() {
-//   const selected = localStorage.getItem("country");
-//   if (selected) {
-//     const option = document.querySelector(`option[value="${selected}"]`);
-// option[value="selected"]를 표현
-//     option.selected = true;
-//   }
-// }
-
-// loadCountries();
-// select.addEventListener("change", handleChange);
