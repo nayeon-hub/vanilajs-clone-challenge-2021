@@ -3,68 +3,70 @@ const taskForm = document.querySelector(".js-form"),
 const pendingList = document.querySelector(".pending-ul");
 const finishedList = document.querySelector(".finished-ul");
 
-const p = [];
-const f = [];
+let pList = [];
+let fList = [];
 
-function pSave(text) {
-  localStorage.setItem("PENDING", JSON.stringify(p));
+function savePending(text) {
+  localStorage.setItem("PENDING", JSON.stringify(pList));
 }
-function fSave(text) {
-  localStorage.setItem("FINISHED", JSON.stringify(f));
+function saveFinished(text) {
+  localStorage.setItem("FINISHED", JSON.stringify(fList));
 }
 
-function paintTask(text, ul) {
+function paint(text, lists) {
+  const ul = lists;
   const li = document.createElement("li");
   const span = document.createElement("span");
-  const btnRemove = document.createElement("button");
-  const btnFinish = document.createElement("button");
-  if (ul.className === "pending-ul") {
-    ul.appendChild(li);
-    li.appendChild(span);
-    li.appendChild(btnRemove);
-    li.appendChild(btnFinish);
+  const btnOne = document.createElement("button");
+  const btnTwo = document.createElement("button");
 
-    span.innerText = text;
-    btnRemove.innerText = "❌";
-    btnFinish.innerText = "✅";
+  ul.appendChild(li);
+  li.appendChild(span);
+  li.appendChild(btnOne);
+  li.appendChild(btnTwo);
+
+  span.innerText = text;
+  btnTwo.innerText = "❌";
+
+  if (lists.className === "pending-ul") {
+    btnOne.innerText = "✅";
+    const newId = Math.random() * 10;
+    li.id = newId;
     const pObj = {
-      id: p.length + 1,
+      id: newId,
       text: text,
     };
-    p.push(pObj);
-    pSave(p);
-  } else if (ul.className === "finished-ul") {
-    ul.appendChild(li);
-    li.appendChild(span);
-    li.appendChild(btnRemove);
-    li.appendChild(btnFinish);
+    pList.push(pObj);
+    savePending();
 
-    span.innerText = text;
-    btnRemove.innerText = "❌";
-    btnFinish.innerText = "⏪";
+    btnOne.addEventListener("click", move);
+    btnTwo.addEventListener("click", remove);
+  } else if (lists.className === "finished-ul") {
+    btnOne.innerText = "⏪";
+    const newId = Math.random() * 10;
+    li.id = newId;
     const fObj = {
-      id: f.length + 1,
+      id: newId,
       text: text,
     };
-    f.push(fObj);
-    fSave(f);
-  }
-  btnRemove.addEventListener("click", remove);
-  btnFinish.addEventListener("click", move);
-}
+    fList.push(fObj);
+    saveFinished();
 
+    btnOne.addEventListener("click", move);
+    btnTwo.addEventListener("click", remove);
+  }
+}
 function move(event) {
   const li = event.target.parentNode;
   const ul = li.parentNode;
   const span = li.querySelector("span");
-  const btn = li.querySelectorAll("button");
 
   if (ul.className === "pending-ul") {
-    finishedList.appendChild(li);
-    btn[1].innerText = "⏪";
+    remove(event);
+    paint(span.innerText, finishedList);
   } else if (ul.className === "finished-ul") {
-    pendingList.appendChild(li);
-    btn[1].innerText = "✅";
+    remove(event);
+    paint(span.innerText, pendingList);
   }
 }
 
@@ -72,29 +74,44 @@ function remove(event) {
   const li = event.target.parentNode;
   const ul = li.parentNode;
   ul.removeChild(li);
-}
-
-function loadedTask() {
-  const loadedPending = localStorage.getItem("PENDING");
-  const loadedFinished = localStorage.getItem("FINISHED");
-  if (loadedPending !== null) {
-    const parsedPending = JSON.parse(loadedPending);
-    parsedPending.forEach(function (pending) {
-      paintTask(pending.text, pendingList);
+  if (ul.className === "pending-ul") {
+    const cleanList = pList.filter(function (pl) {
+      return pl.id !== parseFloat(li.id);
     });
-  } else if (loadedFinished !== null) {
-    const parsedFinished = JSON.parse(loadedFinished);
-    parsedFinished.forEach(function (finished) {
-      paintTask(finished.text, finishedList);
+    pList = cleanList;
+    savePending();
+  } else if (ul.className === "finished-ul") {
+    const cleanList = fList.filter(function (fl) {
+      return fl.id !== parseFloat(li.id);
     });
+    fList = cleanList;
+    saveFinished();
   }
 }
 
 function handleSubmit(event) {
   event.preventDefault();
   const currentValue = taskInput.value;
-  paintTask(currentValue, pendingList);
+  paint(currentValue, pendingList);
   taskInput.value = "";
+}
+
+function loadedTask() {
+  const loadedPending = localStorage.getItem("PENDING");
+  const loadedFinished = localStorage.getItem("FINISHED");
+
+  if (loadedPending !== null) {
+    const parsedPending = JSON.parse(loadedPending);
+    parsedPending.forEach(function (pl) {
+      paint(pl.text, pendingList);
+    });
+  }
+  if (loadedFinished !== null) {
+    const parsedFinished = JSON.parse(loadedFinished);
+    parsedFinished.forEach(function (fl) {
+      paint(fl.text, finishedList);
+    });
+  }
 }
 
 function init() {
