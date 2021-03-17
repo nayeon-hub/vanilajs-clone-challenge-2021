@@ -1,0 +1,22 @@
+.slider > input {
+  width: 161px;
+}
+
+form > .input {
+  width: 45px;
+}
+
+.cover {
+  display: none;
+}
+
+.showing {
+  display: block;
+}
+p {
+  margin: 0;
+}
+p > span:last-child {
+  font-size: 18px;
+  font-weight: 600;
+}

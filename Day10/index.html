@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Casino</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <h1>Random Number Game</h1>
+    <div class="slider">
+      <h3>Generate a number between 0 and <span>10</span></h3>
+      <input type="range" value="0" min="10" max="200" list="tickmarks" />
+      <datalist id="tickmarks">
+        <option value="0"></option>
+        <option value="50"></option>
+        <option value="100"></option>
+        <option value="150"></option>
+        <option value="200"></option>
+      </datalist>
+    </div>
+    <form>
+      <label for="number">Guess the number:</label>
+      <input class="input" type="number" min="1" />
+      <input type="submit" value="play!" />
+      <p class="cover">
+        You chose
+        <span></span>
+        , the machine chose:
+        <span></span>.<br />
+        <span></span>
+      </p>
+    </form>
+    <script src="index.js"></script>
+  </body>
+</html>
