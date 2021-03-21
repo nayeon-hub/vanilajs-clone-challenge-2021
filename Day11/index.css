@@ -1,0 +1,10 @@
+.j-secondRow {
+  display: flex;
+}
+.j-secondColumn {
+  display: flex;
+  flex-direction: column;
+}
+#four > button:first-child {
+  width: 52px;
+}
